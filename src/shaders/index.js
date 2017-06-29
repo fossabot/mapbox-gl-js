@@ -75,3 +75,63 @@ module.exports = {
         vertexSource: fs.readFileSync(__dirname + '/../shaders/symbol_sdf.vertex.glsl', 'utf8')
     }
 };
+
+// Expand #pragmas to #ifdefs.
+
+const re = /#pragma mapbox: ([\w]+) ([\w]+) ([\w]+) ([\w]+)/g;
+
+for (const programName in module.exports) {
+    const program = module.exports[programName];
+    const fragmentPragmas = {};
+
+    program.fragmentSource = program.fragmentSource.replace(re, (match, operation, precision, type, name) => {
+        fragmentPragmas[name] = true;
+        return operation === 'define' ? `
+#ifndef HAS_UNIFORM_u_${name}
+varying ${precision} ${type} ${name};
+#else
+uniform ${precision} ${type} u_${name};
+#endif
+` : `
+#ifdef HAS_UNIFORM_u_${name}
+    ${precision} ${type} ${name} = u_${name};
+#endif
+`;
+    });
+
+    program.vertexSource = program.vertexSource.replace(re, (match, operation, precision, type, name) => {
+        const attrType = type === 'float' ? 'vec2' : 'vec4';
+        if (fragmentPragmas[name]) {
+            return operation === 'define' ? `
+#ifndef HAS_UNIFORM_u_${name}
+uniform lowp float a_${name}_t;
+attribute ${precision} ${attrType} a_${name};
+varying ${precision} ${type} ${name};
+#else
+uniform ${precision} ${type} u_${name};
+#endif
+` : `
+#ifndef HAS_UNIFORM_u_${name}
+    ${name} = unpack_mix_${attrType}(a_${name}, a_${name}_t);
+#else
+    ${precision} ${type} ${name} = u_${name};
+#endif
+`;
+        } else {
+            return operation === 'define' ? `
+#ifndef HAS_UNIFORM_u_${name}
+uniform lowp float a_${name}_t;
+attribute ${precision} ${attrType} a_${name};
+#else
+uniform ${precision} ${type} u_${name};
+#endif
+` : `
+#ifndef HAS_UNIFORM_u_${name}
+    ${precision} ${type} ${name} = unpack_mix_${attrType}(a_${name}, a_${name}_t);
+#else
+    ${precision} ${type} ${name} = u_${name};
+#endif
+`;
+        }
+    });
+}
