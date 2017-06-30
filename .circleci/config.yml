@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: mbgl/ci:r4-linux-clang-3.9
+      - image: circleci/node:6.10
     working_directory: ~/mapbox-gl-js
     steps:
       - checkout
@@ -19,6 +19,7 @@ jobs:
             - '~/.yarn'
             - '.eslintcache'
             - 'node_modules'
+      - run: sudo apt-get update && sudo apt-get install build-essential libglew-dev libxi-dev
       - run:
           name: run tests
           command: |
