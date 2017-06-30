@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:6.10
+      - image: mbgl/ci:r4-linux-clang-3.9
     working_directory: ~/mapbox-gl-js
     steps:
       - checkout

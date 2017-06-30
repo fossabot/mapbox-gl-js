@@ -23,7 +23,7 @@ npm run build-dev
 npm run test-flow
 
 # run unit, render & query tests with coverage
-npm run test-cov
+npm run test-render
 
 # send coverage report to coveralls
 nyc report --reporter=lcov
