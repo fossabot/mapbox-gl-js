@@ -1,8 +1,3 @@
-#!/usr/bin/env bash
-
-source ./nvm/nvm.sh
-nvm use ${NODE_VERSION}
-
 set -e
 set -o pipefail
 
