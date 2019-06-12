@@ -1,4 +1,6 @@
 # Mapbox GL JS
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FEricJaiinThai%2Fmapbox-gl-js.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FEricJaiinThai%2Fmapbox-gl-js?ref=badge_shield)
+
 
 Mapbox GL JS is a JavaScript library that renders interactive maps from vector tiles and Mapbox styles using WebGL. Mapbox GL JS is part of the [cross-platform Mapbox GL ecosystem](https://www.mapbox.com/maps/), which also includes compatible native SDKs for applications on [Android](https://www.mapbox.com/android-sdk/), [iOS](https://www.mapbox.com/ios-sdk/), [macOS](http://mapbox.github.io/mapbox-gl-native/macos), and [Qt](https://github.com/mapbox/mapbox-gl-native/tree/master/platform/qt).
 
@@ -14,3 +16,7 @@ In addition to GL JS, this repository contains code, issues, and test fixtures t
 
 [<img width="981" alt="Mapbox GL gallery" src="https://cloud.githubusercontent.com/assets/281306/14547142/a3c98294-025f-11e6-92f4-d6b0f50c8e89.png">](https://www.mapbox.com/gallery/)
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FEricJaiinThai%2Fmapbox-gl-js.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FEricJaiinThai%2Fmapbox-gl-js?ref=badge_large)
